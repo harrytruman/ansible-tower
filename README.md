@@ -1,6 +1,6 @@
 # Ansible Smart Start in a Box
 
-This repo will configure a complete Tower server/cluster that can be used both for customer demos and as a starting point for Ansible Smart Starts.
+This repo will configure a complete Tower server/cluster that can be used for customer demos and as the logging source for ELK.
 
 ### Instructions:
 
