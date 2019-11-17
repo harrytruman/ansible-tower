@@ -4,16 +4,18 @@ This repo will configure a complete Tower server/cluster that can be used both f
 
 ### Instructions:
 
-Be root (for now)
-
-    git clone
+  1. Setup your subs and repos.
+  2. Add your license file to `roles/config/files`
+  3. Run:
+```
     ansible-playbook one-stop-shop.yml
-    
+```    
     or
-
+```
     ansible-playbook tower-setup.yml
     ansible-playbook tower-admin.yml
     ansible-playbook tower-projects.yml
+ ```
 
 ### What does this role do?
 
