@@ -1,0 +1,40 @@
+- name: add user - harrytruman
+  tower_user:
+    username: lholley
+    password: password
+    email: landon@redhat.com
+    first_name: Harry
+    last_name: Truman
+    state: present
+    superuser: yes
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost
+
+- name: add user - normie
+  tower_user:
+    username: normie
+    password: password
+    email: normie@redhat.com
+    first_name: Norm
+    last_name: Macdonald
+    state: present
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost
+
+- name: add user - auditor
+  tower_user:
+    username: todd
+    password: password
+    email: todditor@redhat.com
+    first_name: Todd
+    last_name: John
+    state: present
+    auditor: yes
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost

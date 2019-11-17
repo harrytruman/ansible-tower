@@ -1,0 +1,21 @@
+- name: create tower inventory
+  tower_inventory:
+    name: "Linux"
+    description: "RHEL hosts"
+    organization: "Red Hat"
+    state: present
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost
+
+- name: add localhost to linux inventory
+  tower_host:
+    name: localhost
+    description: "tower demo server"
+    inventory: "Linux"
+    state: present
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost

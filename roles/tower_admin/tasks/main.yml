@@ -1,0 +1,6 @@
+- include: users.yml
+- include: organizations.yml
+- include: teams.yml
+- include: inventory.yml
+- include: logging.yml
+#- include: saml.yml

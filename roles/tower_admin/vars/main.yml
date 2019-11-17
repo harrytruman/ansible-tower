@@ -1,0 +1,6 @@
+#saml_public_cert: >
+#-----BEGIN CERTIFICATE-----\ncerthere
+#vault_saml_private_key: >
+#private key
+#vault_x509_cert: >
+  #certhere

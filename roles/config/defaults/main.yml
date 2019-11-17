@@ -1,0 +1,5 @@
+tower_host: "{{ ansible_default_ipv4.address }}"
+tower_username: admin
+tower_password: redhat
+tower_pip_packages: [ urllib3, setuptools, f5-sdk, f5-icontrol-rest, pan-python ]
+tower_min_open_files: 8096

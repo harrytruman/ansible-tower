@@ -1,0 +1,127 @@
+- name: set timezone to utc
+  timezone:
+    name: "{{ timezone | default('UTC') }}"
+  tags:
+    - timezone
+
+# These also include personal preferences
+- name: install pre-req linux packages
+  yum:
+    name:
+      - python3-pip
+      - tree
+      - bind-utils
+      - nc
+      - wget
+      - tcpdump
+      - nmap
+      - mlocate
+      - unzip
+      - net-tools
+      - git
+      - make
+    state: present
+  tags: yum
+
+- name: install system pip packages
+  pip:
+    name: "urllib3"
+    state: present
+    umask: '0022'
+  tags:
+    - pip
+
+- name: create tower directory
+  file:
+    path: "{{ tower_extract_dir }}"
+    state: directory
+    mode: 0700
+  tags:
+    - tower
+    - tower-download
+
+- name: download tower offline bundled installer
+  unarchive:
+#    src: https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-latest.el7.tar.gz
+    src: https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-latest.el8.tar.gz
+#    src: ansible-tower-setup-bundle-latest.el7.tar.gz
+#    remote_src: yes
+#    src: ansible-tower-setup-bundle-latest.el8.tar.gz
+    remote_src: no
+    dest: "{{ tower_extract_dir }}"
+  tags:
+    - tower
+    - tower-download
+
+- name: get installer path
+  find:
+    paths: "{{ tower_extract_dir }}"
+    patterns: ansible-tower-*
+    file_type: directory
+  register: installer_path
+  tags:
+    - tower
+    - tower-install
+
+- name: place inventory file
+  template:
+    src: tower_inventory.j2
+    dest: "{{ installer_path.files[0].path }}/inventory"
+  tags:
+    - tower
+    - tower-install
+
+#- name: Create .ssh directory
+#  file:
+#    path: ~/.ssh
+#    state: directory
+#    mode: 0700
+#  tags:
+#    - tower
+
+- name: gather ssh host keys
+  command: ssh-keyscan {{ hostvars[item].ansible_all_ipv4_addresses[-1] }}
+  with_items: "{{ groups.all }}"
+  become: no
+  changed_when: no
+  register: host_keys
+  tags:
+    - ssh
+
+- name: add ssh host keys to known_hosts
+  known_hosts:
+    name: "{{ item.cmd[-1] }}"
+    key: "{{ item.stdout }}"
+  with_items: "{{ host_keys.results }}"
+  no_log: true
+  tags:
+    - ssh
+
+- name: install ansible tower
+  command: ./setup.sh -e required_ram=0 minimum_var_space=0
+  args:
+    chdir: "{{ installer_path.files[0].path }}"
+  tags:
+    - tower
+    - tower-install
+
+- name: download tower cli
+  git:
+    repo: https://github.com/ansible/tower-cli
+    dest: "{{ tower_extract_dir }}/tower-cli"
+  tags:
+    - tower-cli
+
+#- name: set python3
+#  shell: |
+#    alias python=python3
+#    make install
+#  args:
+#    chdir: "{{ tower_extract_dir }}/tower-cli"
+
+- name: install tower cli
+  make:
+    chdir: "{{ tower_extract_dir }}/tower-cli"
+    target: install
+  tags:
+    - tower-cli

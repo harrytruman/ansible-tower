@@ -1,0 +1,14 @@
+- name: configure saml
+  uri:
+    url: https://{{ ansible_default_ipv4.address }}/api/v2/settings/saml
+    user: "{{ tower_username }}"
+    password: "{{ tower_password }}"
+    force_basic_auth: yes
+    method: PUT
+    body_format: json
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    src: templates/saml.j2
+    validate_certs: false
+    return_content: yes

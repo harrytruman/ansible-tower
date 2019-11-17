@@ -1,0 +1,67 @@
+- name: create fact collection project
+  tower_project:
+    name: "Fact Collection"
+    description: "Gather Ansible facts from Linux hosts"
+    organization: "Red Hat"
+    scm_url: https://github.com/ansible/awx-facts-playbooks
+    scm_type: git
+    scm_update_on_launch: yes
+    state: present
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost
+
+- name: create linux root credential
+  tower_credential:
+    name: "Root Password"
+    description: "Linux root password"
+    organization: Red Hat
+    state: present
+    kind: ssh
+    username: root
+    password: password
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost
+
+# tower can't create the above credential quickly enough and the proceeding job template can't be created since the rood cred hasn't been written to the database yet lolol
+- name: reticulating splines
+  pause:
+    seconds: 10
+
+- name: create fact collection job template
+  tower_job_template:
+    name: "Linux Facts"
+    description: "Perform fact collection"
+    job_type: "run"
+    inventory: "Linux"
+    project: "Fact Collection"
+    playbook: "scan_facts.yml"
+    credential: "Root Password"
+    state: "present"
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost
+
+- name: launch fact collection
+  tower_job_launch:
+    job_template: "Linux Facts"
+    inventory: "Linux"
+    credential: "Root Password"
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost
+  register: job
+
+- name: wait for job to complete
+  tower_job_wait:
+    job_id: "{{ job.id }}"
+    timeout: 120
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost

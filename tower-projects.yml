@@ -1,0 +1,7 @@
+---
+- name: prepare for tower installation
+  hosts: all
+  gather_facts: no
+
+  roles:
+    - role: projects

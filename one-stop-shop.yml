@@ -1,0 +1,10 @@
+---
+- name: setup everything in tower and launch a job
+  hosts: all
+  gather_facts: yes
+
+  roles:
+    - role: install
+    - role: config
+    - role: tower_admin
+    - role: projects

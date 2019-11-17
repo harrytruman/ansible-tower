@@ -1,0 +1,61 @@
+{
+    "SOCIAL_AUTH_SAML_CALLBACK_URL": "https://company.com/sso/complete/saml/",
+    "SOCIAL_AUTH_SAML_METADATA_URL": "https://company.com/sso/metadata/saml/",
+    "SOCIAL_AUTH_SAML_SP_ENTITY_ID": "https://company.com",
+    "SOCIAL_AUTH_SAML_SP_PUBLIC_CERT": "{{ saml_public_cert }}",
+    "SOCIAL_AUTH_SAML_SP_PRIVATE_KEY": "{{ vault_saml_private_key }}",
+    "SOCIAL_AUTH_SAML_ORG_INFO": {
+        "en-US": {
+            "url": "https://ansible.company.com",
+            "displayname": "ansible-tower",
+            "name": "ansible-tower"
+        }
+    },
+    "SOCIAL_AUTH_SAML_TECHNICAL_CONTACT": {
+        "givenName": "Team Lead",
+        "emailAddress": "techlead@company.com"
+    },
+    "SOCIAL_AUTH_SAML_SUPPORT_CONTACT": {
+        "givenName": "SAML Contact",
+        "emailAddress": "saml@company.com"
+    },
+    "SOCIAL_AUTH_SAML_ENABLED_IDPS": {
+        "adfs": {
+            "attr_last_name": "LastName",
+            "attr_username": "name_attr",
+            "entity_id": "http://company.com/adfs/services/trust",
+            "attr_user_permanent_id": "name_id",
+            "url": "https://company.com/adfs/ls/",
+            "attr_email": "Email",
+            "x509cert": "{{ vault_x509_cert }}",
+            "attr_first_name": "FirstName"
+        }
+    },
+    "SOCIAL_AUTH_SAML_SECURITY_CONFIG": {
+        "requestedAuthnContext": false
+    },
+    "SOCIAL_AUTH_SAML_SP_EXTRA": {},
+    "SOCIAL_AUTH_SAML_EXTRA_DATA": [],
+    "SOCIAL_AUTH_SAML_ORGANIZATION_MAP": {},
+    "SOCIAL_AUTH_SAML_TEAM_MAP": {
+        "saml_attr": "teamOf",
+        "remove": true,
+        "team_org_map": [
+        {
+         "organization": "Support",
+         "team": "Support"
+        },
+        {
+         "organization": "Engineering",
+         "team": "Dev"
+        }
+        ]
+    },
+    "SOCIAL_AUTH_SAML_ORGANIZATION_ATTR": {
+        "saml_attr": "memberOf",
+        "saml_admin_attr": "administratorOf",
+        "remove_admins": true,
+        "remove": true
+    },
+    "SOCIAL_AUTH_SAML_TEAM_ATTR": {}
+}

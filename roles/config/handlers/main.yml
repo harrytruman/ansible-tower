@@ -1,0 +1,7 @@
+- name: restart supervisord
+  service:
+    name: supervisord
+    state: restarted
+
+- name: restart tower
+  command: ansible-tower-service restart

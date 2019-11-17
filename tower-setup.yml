@@ -1,0 +1,8 @@
+---
+- name: Ansible Tower Demo
+  hosts: all
+  gather_facts: yes
+
+  roles:
+    - role: install
+    - role: config

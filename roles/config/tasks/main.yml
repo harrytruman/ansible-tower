@@ -1,0 +1,77 @@
+# Add this line to the license file first:
+# "eula_accepted": "true"
+
+- name: make sure tower is up and running
+  uri:
+    url: https://localhost/
+    status_code: 200
+    validate_certs: false
+  register: result
+  until: result.status == 200
+  retries: 30
+  delay: 1
+  tags:
+    - tower
+    - tower-config
+
+- name: upload tower license file
+  uri:
+    url: https://localhost/api/v2/config/
+    user: "{{ tower_username }}"
+    password: "{{ tower_password }}"
+    force_basic_auth: yes  
+    method: POST
+    body_format: json
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    src: license.txt
+    validate_certs: false
+    return_content: yes
+  tags:
+    - tower
+    - tower-config
+
+- name: install system pip packages
+  pip:
+    name: "{{ tower_pip_packages }}"
+    state: present
+    umask: '0022'
+  tags:
+    - pip
+    - tower-config
+
+- name: install tower venv pip packages
+  pip:
+    name: "{{ tower_pip_packages }}"
+    state: present
+    virtualenv: /var/lib/awx/venv/ansible/
+    umask: '0022'
+  tags:
+    - pip
+    - tower-config
+
+- name: set ipv4 tcp keep alive
+  sysctl:
+    name: net.ipv4.tcp_keepalive_time
+    value: 300
+    sysctl_set: yes
+    state: present
+    reload: yes
+  tags:
+    - sysctl
+    - tower-config
+
+- name: adjust open file limits for tower
+  lineinfile:
+    state: present
+    dest: /etc/supervisord.d/tower.ini
+    regexp: '^minfds'
+    line: 'minfds = {{ tower_min_open_files }}'
+  tags:
+    - tower
+    - tower-config
+    - tower_limits
+  notify:
+    - restart supervisord
+    - restart tower

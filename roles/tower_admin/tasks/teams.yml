@@ -1,0 +1,32 @@
+- name: create team - networking
+  tower_team:
+    name: Networking
+    description: Network Automation Development Members
+    organization: Red Hat
+    state: present
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost
+
+- name: create team - engineering
+  tower_team:
+    name: Engineering
+    description: Ansible Engineering Development Members
+    organization: Red Hat
+    state: present
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost
+
+- name: create team - support
+  tower_team:
+    name: Support
+    description: Ansible Support Members
+    organization: Red Hat
+    state: present
+    tower_verify_ssl: false
+    tower_username: "{{ tower_username }}"
+    tower_password: "{{ tower_password }}"
+    tower_host: localhost

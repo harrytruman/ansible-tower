@@ -1,0 +1,7 @@
+---
+- name: add users and teams to ansible tower
+  hosts: all
+  gather_facts: yes
+
+  roles:
+    - role: tower_admin
