@@ -1,30 +1,28 @@
 # Ansible Smart Start in a Box
 
-This repo will configure a complete Tower server/cluster that can be used for customer demos and as the logging source for ELK.
+This repo will configure a complete Tower server/cluster that can be used for getting started with Ansible 2.9 and Tower 3.6, and as the logging source for ELK.
 
 ### Instructions:
 
-  1. Setup your subs and repos.
-  2. Add your license file to `roles/config/files`
-  3. Run:
+Place your license file in `roles/config/files`.
+
+Be root, or set your `ansible_become` in the inventory template.
+
 ```
-    ansible-playbook one-stop-shop.yml
-```    
-    or
+    ansible-playbook one-stop-shop.yml -e "sub_username=username" -e "sub_password=password"
 ```
-    ansible-playbook tower-setup.yml
-    ansible-playbook tower-admin.yml
-    ansible-playbook tower-projects.yml
- ```
 
 ### What does this role do?
 
-#### tower-setup.yml
+#### Install Tower
 - set timezone to utc
+- subscribe to red hat
+- subscribe to tower repo
 - install pre-req yum packages
-- install tower-cli
 - place ssh keys on servers
 - download, extract, and install tower
+
+#### Configure Tower
 - verify tower is up
 - apply license
 - install linux pip packages
@@ -32,14 +30,13 @@ This repo will configure a complete Tower server/cluster that can be used for cu
 - set ipv4 tcp keep alive
 - set open file limits for tower
 
-#### tower-admin.yml
+#### Add stuff to Tower
 - add users
 - create organizations
 - add users to teams/orgs
 - create inventory
 - configure tower logging destination
 
-#### tower-projects.yml
 - create fact collection project
 - create linux root credential
 - create fact collection job template
