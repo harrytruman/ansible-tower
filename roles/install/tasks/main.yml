@@ -4,11 +4,26 @@
   tags:
     - timezone
 
+- name: register server through subscription manager
+  redhat_subscription:
+    state: present
+    username: "{{ sub_username }}"
+    password: "{{ sub_password }}"
+    auto_attach: false
+  tags: yum
+
+- name: subscribe to tower repo
+  rhsm_repository:
+    name: ansible-2.9-for-rhel-8-x86_64-rpms
+    state: enabled
+  tags: yum
+
 # These also include personal preferences
 - name: install pre-req linux packages
   yum:
     name:
       - python3-pip
+      - rsync
       - tree
       - bind-utils
       - nc
@@ -47,7 +62,7 @@
 #    src: ansible-tower-setup-bundle-latest.el7.tar.gz
 #    remote_src: yes
 #    src: ansible-tower-setup-bundle-latest.el8.tar.gz
-    remote_src: no
+    remote_src: yes
     dest: "{{ tower_extract_dir }}"
   tags:
     - tower
@@ -105,12 +120,13 @@
     - tower
     - tower-install
 
-- name: download tower cli
-  git:
-    repo: https://github.com/ansible/tower-cli
-    dest: "{{ tower_extract_dir }}/tower-cli"
-  tags:
-    - tower-cli
+# tower cli native in tower 3.6
+#- name: download tower cli
+#  git:
+#    repo: https://github.com/ansible/tower-cli
+#    dest: "{{ tower_extract_dir }}/tower-cli"
+#  tags:
+#    - tower-cli
 
 #- name: set python3
 #  shell: |
@@ -119,9 +135,9 @@
 #  args:
 #    chdir: "{{ tower_extract_dir }}/tower-cli"
 
-- name: install tower cli
-  make:
-    chdir: "{{ tower_extract_dir }}/tower-cli"
-    target: install
-  tags:
-    - tower-cli
+#- name: install tower cli
+#  make:
+#    chdir: "{{ tower_extract_dir }}/tower-cli"
+#    target: install
+#  tags:
+#    - tower-cli
