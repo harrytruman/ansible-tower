@@ -1,6 +1,6 @@
-# Ansible Smart Start in a Box
+# Ansible Tower for RHEL8
 
-This repo will configure a complete Tower server/cluster that can be used for getting started with Ansible 2.9 and Tower 3.6, and as the logging source for ELK.
+This repo will configure RHEL8 with Ansible 2.9 and Tower 3.6.
 
 ### Instructions:
 
