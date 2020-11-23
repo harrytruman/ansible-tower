@@ -59,9 +59,6 @@
   unarchive:
 #    src: https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-latest.el7.tar.gz
     src: https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-latest.el8.tar.gz
-#    src: ansible-tower-setup-bundle-latest.el7.tar.gz
-#    remote_src: yes
-#    src: ansible-tower-setup-bundle-latest.el8.tar.gz
     remote_src: yes
     dest: "{{ tower_extract_dir }}"
   tags:
@@ -85,14 +82,6 @@
   tags:
     - tower
     - tower-install
-
-#- name: Create .ssh directory
-#  file:
-#    path: ~/.ssh
-#    state: directory
-#    mode: 0700
-#  tags:
-#    - tower
 
 - name: gather ssh host keys
   command: ssh-keyscan {{ hostvars[item].ansible_all_ipv4_addresses[-1] }}
@@ -119,25 +108,3 @@
   tags:
     - tower
     - tower-install
-
-# tower cli native in tower 3.6
-#- name: download tower cli
-#  git:
-#    repo: https://github.com/ansible/tower-cli
-#    dest: "{{ tower_extract_dir }}/tower-cli"
-#  tags:
-#    - tower-cli
-
-#- name: set python3
-#  shell: |
-#    alias python=python3
-#    make install
-#  args:
-#    chdir: "{{ tower_extract_dir }}/tower-cli"
-
-#- name: install tower cli
-#  make:
-#    chdir: "{{ tower_extract_dir }}/tower-cli"
-#    target: install
-#  tags:
-#    - tower-cli
