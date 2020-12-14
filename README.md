@@ -16,8 +16,8 @@ This repo will configure RHEL8 with Ansible 2.10, deploy Tower 3.7, and perform 
 
 #### Install Tower
 - set timezone to utc
-- subscribe to red hat
-- subscribe to tower repo
+- register rhel
+- add tower repo
 - install pre-req yum packages
 - place ssh keys on servers
 - download, extract, and install tower
@@ -25,10 +25,10 @@ This repo will configure RHEL8 with Ansible 2.10, deploy Tower 3.7, and perform 
 #### Configure Tower
 - verify tower is up
 - apply license
-- install linux pip packages
+- install system pip packages
 - install tower venv pip packages
 - set ipv4 tcp keep alive
-- set open file limits for tower
+- adjust open file limits for tower
 
 #### Add stuff to Tower
 - add users
