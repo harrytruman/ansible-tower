@@ -1,0 +1,7 @@
+---
+- name: add certs and update linux root ca
+  hosts: all
+  gather_facts: yes
+
+  roles:
+    - role: internal_ca
