@@ -1,6 +1,6 @@
 # Ansible Tower for RHEL8
 
-This repo will configure RHEL8 with Ansible 2.10 and Tower 3.8.
+This repo will configure RHEL8 with Ansible 2.10 and Tower 3.7.
 
 ### Instructions:
 
