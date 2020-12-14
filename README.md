@@ -1,6 +1,6 @@
 # Ansible Tower for RHEL8
 
-This repo will configure RHEL8 with Ansible 2.9 and Tower 3.6.
+This repo will configure RHEL8 with Ansible 2.10 and Tower 3.8.
 
 ### Instructions:
 
@@ -36,7 +36,6 @@ Be root, or set your `ansible_become` in the inventory template.
 - add users to teams/orgs
 - create inventory
 - configure tower logging destination
-
 - create fact collection project
 - create linux root credential
 - create fact collection job template
