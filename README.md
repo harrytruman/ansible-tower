@@ -1,12 +1,12 @@
-# Ansible Tower for RHEL8
+# Setup and Configure Ansible Tower for RHEL8
 
-This repo will configure RHEL8 with Ansible 2.10 and Tower 3.7.
+This repo will configure RHEL8 with Ansible 2.10, deploy Tower 3.7, and perform post-setup configuration of orgs/teams, projects, credentials, and job templates.
 
-### Instructions:
+## Instructions:
 
-Place your license file in `roles/config/files`.
+1. Place your license file in `roles/config/files`.
 
-Be root, or set your `ansible_become` in the inventory template.
+2. Be root or set your `ansible_become` in the inventory template, and run:
 
 ```
     ansible-playbook one-stop-shop.yml -e "sub_username=username" -e "sub_password=password"
