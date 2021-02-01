@@ -14,23 +14,23 @@
     - tower
     - tower-config
 
-- name: upload tower license file
-  uri:
-    url: https://localhost/api/v2/config/
-    user: "{{ tower_username }}"
-    password: "{{ tower_password }}"
-    force_basic_auth: yes  
-    method: POST
-    body_format: json
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    src: license.txt
-    validate_certs: false
-    return_content: yes
-  tags:
-    - tower
-    - tower-config
+#- name: upload tower license file
+#  uri:
+#    url: https://localhost/api/v2/config/
+#    user: "{{ tower_username }}"
+#    password: "{{ tower_password }}"
+#    force_basic_auth: yes  
+#    method: POST
+#    body_format: json
+#    headers:
+#      Content-Type: application/json
+#      Accept: application/json
+#    src: license.txt
+#    validate_certs: false
+#    return_content: yes
+#  tags:
+#    - tower
+#    - tower-config
 
 - name: install system pip packages
   pip:
@@ -62,7 +62,7 @@
     - sysctl
     - tower-config
 
-- name: adjust open file limits for tower
+- name: adjust open file limits and restart tower
   lineinfile:
     state: present
     dest: /etc/supervisord.d/tower.ini
