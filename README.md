@@ -4,7 +4,7 @@ This repo will configure RHEL8 with Ansible 2.9, deploy Tower 3.7, and perform p
 
 ## Instructions:
 
-1. Place your license file in `roles/config/files`.
+1. Place your license file in `roles/config/files` (Tower 3.6 and earlier)
 
 2. Be root or set your `ansible_become` in the inventory template, and run:
 
