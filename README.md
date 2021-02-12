@@ -1,6 +1,6 @@
 # Setup and Configure Ansible Tower for RHEL8
 
-This repo will configure RHEL8 with Ansible 2.10, deploy Tower 3.7, and perform post-setup configuration of orgs/teams, projects, credentials, and job templates.
+This repo will configure RHEL8 with Ansible 2.9, deploy Tower 3.7, and perform post-setup configuration of orgs/teams, projects, credentials, and job templates.
 
 ## Instructions:
 
