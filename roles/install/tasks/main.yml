@@ -14,7 +14,7 @@
 
 - name: subscribe to tower repo
   rhsm_repository:
-    name: ansible-2.10-for-rhel-8-x86_64-rpms
+    name: ansible-2.9-for-rhel-8-x86_64-rpms
     state: enabled
   tags: yum
 
