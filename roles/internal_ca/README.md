@@ -23,7 +23,7 @@ Example Playbook
 
     - hosts: all
       roles:
-         - interna-ca
+         - internal-ca
 
 License
 -------
