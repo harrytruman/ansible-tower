@@ -1,7 +1,7 @@
 Internal CA
 =========
 
-Add internal Microsoft certificate authority to the trusted root store.
+Add internal certificate authority to the trusted root store.
 
 Requirements
 ------------
