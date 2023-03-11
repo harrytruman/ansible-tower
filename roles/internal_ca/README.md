@@ -6,7 +6,7 @@ Add internal certificate authority to the trusted root store.
 Requirements
 ------------
 
-None.
+Create a directory at this level called 'files' and place your certificates within.
 
 Role Variables
 --------------
