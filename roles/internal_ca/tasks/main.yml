@@ -6,8 +6,6 @@
     group: root
     mode: 0644
   notify: update ca trust
-  with_fileglob:
-    - "ca_certs/*"
   tags:
     - certs
     
