@@ -1,30 +1,29 @@
-- name: create fact collection project
+- name: create fact collection project and sync repo
   tower_project:
     name: "Fact Collection"
     description: "Gather Ansible facts from Linux hosts"
     organization: "Red Hat"
-    scm_url: https://github.com/ansible/awx-facts-playbooks
+    scm_url: https://github.com/harrytruman/facts_machine
     scm_type: git
+    scm_branch: "{{ scm_branch | default('main') }}"
     scm_update_on_launch: yes
     state: present
     tower_verify_ssl: false
     tower_username: "{{ tower_username }}"
     tower_password: "{{ tower_password }}"
-    tower_host: localhost
 
 - name: create linux root credential
   tower_credential:
-    name: "Root Password"
+    name: "Linux root Password"
     description: "Linux root password"
     organization: Red Hat
     state: present
     kind: ssh
     username: root
-    password: password
+    password: "{{ vault-linux_root_pw }}"
     tower_verify_ssl: false
     tower_username: "{{ tower_username }}"
     tower_password: "{{ tower_password }}"
-    tower_host: localhost
 
 # tower can't create the above credential quickly enough and the proceeding job template can't be created since the rood cred hasn't been written to the database yet lolol
 - name: reticulating splines
@@ -38,13 +37,12 @@
     job_type: "run"
     inventory: "Linux"
     project: "Fact Collection"
-    playbook: "scan_facts.yml"
-    credential: "Root Password"
+    playbook: "linux_facts.yml"
+    credential: "Linux root Password"
     state: "present"
     tower_verify_ssl: false
     tower_username: "{{ tower_username }}"
     tower_password: "{{ tower_password }}"
-    tower_host: localhost
 
 - name: launch fact collection
   tower_job_launch:
@@ -54,7 +52,6 @@
     tower_verify_ssl: false
     tower_username: "{{ tower_username }}"
     tower_password: "{{ tower_password }}"
-    tower_host: localhost
   register: job
 
 - name: wait for job to complete
@@ -64,4 +61,3 @@
     tower_verify_ssl: false
     tower_username: "{{ tower_username }}"
     tower_password: "{{ tower_password }}"
-    tower_host: localhost
