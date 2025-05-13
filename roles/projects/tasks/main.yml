@@ -28,7 +28,7 @@
 # tower can't create the above credential quickly enough and the proceeding job template can't be created since the rood cred hasn't been written to the database yet lolol
 - name: reticulating splines
   pause:
-    seconds: 10
+    seconds: 1
 
 - name: create fact collection job template
   tower_job_template:
